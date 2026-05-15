@@ -41,3 +41,60 @@
 
 <h2>Input below has a value: {{inputValue2}}</h2>
 <igds-input [(value)]="inputValue2" dir="ltr"></igds-input>
+
+<h2>Table example</h2>
+<igds-table [selectable]="true" (igds-row-select)="handleRowSelection($event)">
+  <igds-table-header
+    [columns]="[
+      {id: '1', name: 'Type of material', slotted: true},
+      {id: '2', name: 'Tax ID / Authorized Dealer number', slotted: true},
+      {id: '3', name: 'Name of the collecting entity', slotted: true},
+      {id: '4', name: 'Capacity 100 ml to 1.499 liters', slotted: true},
+      {id: '5', name: 'Capacity 1.5 to 5 liters', slotted: true}
+    ]"
+  ></igds-table-header>
+  @for(rowId of rows; track rowId) {
+    <igds-table-row [rowId]="rowId">
+      <igds-table-cell>
+        <igds-dropdown
+          [options]="dropdownOptions"
+          dir="ltr"
+          placeholder="Select..."
+          [disabled]="getFieldDisableState(rowId)"
+        />
+      </igds-table-cell>
+      <igds-table-cell>
+        <igds-input
+          [disabled]="getFieldDisableState(rowId)"
+          placeholder="Input 1"
+          dir="ltr"
+        >
+        </igds-input>
+      </igds-table-cell>
+      <igds-table-cell>
+        <igds-input
+          [disabled]="getFieldDisableState(rowId)"
+          placeholder="Input 2"
+          dir="ltr"
+        >
+        </igds-input>
+      </igds-table-cell>
+      <igds-table-cell>
+        <igds-input
+          [disabled]="getFieldDisableState(rowId)"
+          placeholder="Input 3"
+          dir="ltr"
+        >
+        </igds-input>
+      </igds-table-cell>
+      <igds-table-cell>
+        <igds-input
+          [disabled]="getFieldDisableState(rowId)"
+          placeholder="Input 4"
+          dir="ltr"
+        >
+        </igds-input>
+      </igds-table-cell>
+    </igds-table-row>
+  }
+</igds-table>

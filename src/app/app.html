@@ -98,3 +98,213 @@
     </igds-table-row>
   }
 </igds-table>
+
+<h2>Another Table example</h2>
+<igds-table class="another-table">
+  <igds-table-header
+    [columns]="[
+      {id: '1', name: 'Type of material', slotted: true},
+      {id: '2', name: 'Tax ID / Authorized Dealer number', slotted: true},
+      {id: '3', name: 'Name of the collecting entity', slotted: true},
+      {id: '4', name: 'Capacity 100 ml to 1.499 liters', slotted: true},
+      {id: '5', name: 'Capacity 1.5 to 5 liters', slotted: true},
+      {id: '6', name: '', slotted: true}
+    ]"
+  ></igds-table-header>
+
+  <igds-table-row>
+    <igds-table-cell>
+      <igds-dropdown
+        [options]="dropdownOptions"
+        dir="ltr"
+        placeholder="Select..."
+      />
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 1"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 2"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 3"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>0</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-button>
+        <igds-icon [node]="plusIcon"></igds-icon>
+      </igds-button>
+    </igds-table-cell>
+  </igds-table-row>
+
+  <igds-table-row>
+    <igds-table-cell>
+      <div>Some text</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>4</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>5</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>9</div>
+    </igds-table-cell>
+    <igds-table-cell>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-button variant="link">
+        <igds-icon [node]="pencilIcon"></igds-icon>
+      </igds-button>
+    </igds-table-cell>
+  </igds-table-row>
+
+  <igds-table-row>
+    <igds-table-cell>
+      <igds-dropdown
+        [options]="dropdownOptions"
+        dir="ltr"
+        placeholder="Select..."
+      />
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 1"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 2"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 3"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>0</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-button>
+        <igds-icon [node]="plusIcon"></igds-icon>
+      </igds-button>
+    </igds-table-cell>
+  </igds-table-row>
+
+  <igds-table-row>
+    <igds-table-cell>
+      <div>Some text</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>4</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>5</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div>9</div>
+    </igds-table-cell>
+    <igds-table-cell>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-button variant="link">
+        <igds-icon [node]="pencilIcon"></igds-icon>
+      </igds-button>
+    </igds-table-cell>
+  </igds-table-row>
+
+  <igds-table-row>
+    <igds-table-cell>
+      <div part="slot-content">Total</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div part="slot-content">10</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div part="slot-content">15</div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div part="slot-content">23</div>
+    </igds-table-cell>
+    <igds-table-cell>
+    </igds-table-cell>
+  </igds-table-row>
+</igds-table>
+
+<h2>Example table with two control in one slot</h2>
+
+<igds-table class="another-table">
+  <igds-table-header
+    [columns]="[
+      {id: '1', name: 'Type of material', slotted: true},
+      {id: '2', name: 'Tax ID / Authorized Dealer number', slotted: true},
+      {id: '3', name: 'Name of the collecting entity', slotted: true},
+      {id: '4', name: 'Capacity 100 ml to 1.499 liters', slotted: true},
+      {id: '5', name: '', slotted: true}
+    ]"
+  ></igds-table-header>
+
+  <igds-table-row>
+    <igds-table-cell>
+      <igds-dropdown
+        [options]="dropdownOptions"
+        dir="ltr"
+        placeholder="Select..."
+      />
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 1"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <div part="cell-with-two-inputs">
+        <igds-input
+          placeholder="Input 2:1"
+          dir="ltr"
+        >
+        </igds-input>
+        <igds-input
+          placeholder="Input 2:2"
+          dir="ltr"
+        >
+        </igds-input>
+      </div>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-input
+        placeholder="Input 3"
+        dir="ltr"
+      >
+      </igds-input>
+    </igds-table-cell>
+    <igds-table-cell>
+      <igds-button>
+        <igds-icon [node]="plusIcon"></igds-icon>
+      </igds-button>
+    </igds-table-cell>
+  </igds-table-row>
+</igds-table>

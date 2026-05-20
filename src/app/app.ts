@@ -9,7 +9,9 @@ import { IgdsTableHeader } from "@igds/angular/table-header";
 import { IgdsTableRow } from "@igds/angular/table-row";
 import { IgdsTableCell } from "@igds/angular/table-cell";
 import { IgdsDropdown } from "@igds/angular/dropdown";
+import { IgdsIcon } from "@igds/angular/icon";
 import { Option } from "@igds/core-web/dropdown";
+import { plus, pencilOutlined } from "@igds/icons";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,7 @@ import { Option } from "@igds/core-web/dropdown";
     IgdsTableRow,
     IgdsTableCell,
     IgdsDropdown,
+    IgdsIcon,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -57,6 +60,8 @@ export class App {
     },
   ]
   rows = ['1', '2', '3'];
+  plusIcon = plus
+  pencilIcon = pencilOutlined
 
   form: FormGroup = new FormGroup({
     input: new FormControl(''),

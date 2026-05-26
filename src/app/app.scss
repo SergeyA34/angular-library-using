@@ -30,5 +30,31 @@
       flex-direction: column;
     }
   }
+
+  &::part(cell-button) {
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  &::part(cell-content) {
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  &::part(cell-controls) {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__footer {
+    padding-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
 }
 

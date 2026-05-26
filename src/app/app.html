@@ -1,4 +1,119 @@
 <h1>Test angular app</h1>
+<h2>Custom row edit table</h2>
+
+<form [formGroup]="materialTableForm" (ngSubmit)="submitMaterialTableForm($event)">
+  <igds-table class="another-table">
+    <igds-table-header
+      [columns]="[
+        {id: '1', name: 'Type of material', slotted: true},
+        {id: '2', name: 'Tax ID / Authorized Dealer number', slotted: true},
+        {id: '3', name: 'Name of the collecting entity', slotted: true},
+        {id: '4', name: 'Capacity 100 ml to 1.499 liters', slotted: true},
+        {id: '5', name: '', slotted: true}
+      ]"
+    ></igds-table-header>
+
+    <ng-container formArrayName="rows">
+      @for (row of materialTableRows.controls; track row.controls.rowId.value; let i = $index) {
+        <igds-table-row [formGroupName]="i">
+          <igds-table-cell>
+            @if (editableRowId() === row.controls.rowId.value) {
+              <igds-dropdown
+                formControlName="material"
+                [options]="typeOfMaterialOptions"
+                dir="ltr"
+                placeholder="Select material..."
+              />
+            } @else {
+              <div part="cell-content">{{row.controls.material.value}}</div>
+            }
+          </igds-table-cell>
+          <igds-table-cell>
+            @if (editableRowId() === row.controls.rowId.value) {
+              <igds-input
+                formControlName="taxId"
+                placeholder="Specify tax ID"
+                dir="ltr"
+              />
+            } @else {
+              <div part="cell-content">{{row.controls.taxId.value}}</div>
+            }
+          </igds-table-cell>
+          <igds-table-cell>
+            @if (editableRowId() === row.controls.rowId.value) {
+              <igds-input
+                formControlName="collectingEntityName"
+                placeholder="Specify name of the collecting entity"
+                dir="ltr"
+              />
+            } @else {
+              <div part="cell-content">{{row.controls.collectingEntityName.value}}</div>
+            }
+          </igds-table-cell>
+          <igds-table-cell>
+            @if (editableRowId() === row.controls.rowId.value) {
+              <igds-input
+                formControlName="capacity"
+                placeholder="Specify capacity"
+                dir="ltr"
+                type="number"
+              />
+            } @else {
+              <div part="cell-content">{{row.controls.capacity.value}}</div>
+            }
+          </igds-table-cell>
+          <igds-table-cell>
+            @if (editableRowId() === row.controls.rowId.value) {
+              <div part="cell-controls">
+                <igds-button
+                  variant="alternative"
+                  size="small"
+                  part="cell-button"
+                  (igds-click)="saveRow()"
+                >
+                  <igds-icon [node]="checkmarkIcon"></igds-icon>
+                </igds-button>
+                <igds-button
+                  variant="alternative"
+                  size="small"
+                  part="cell-button"
+                  (igds-click)="cancelRowEdit(row.controls.rowId.value)"
+                >
+                  <igds-icon [node]="closeIcon"></igds-icon>
+                </igds-button>
+              </div>
+            } @else {
+              <igds-button
+                variant="alternative"
+                size="small"
+                part="cell-button"
+                (igds-click)="editRow(row.controls.rowId.value)"
+                [disabled]="editableRowId() !== undefined"
+              >
+                <igds-icon [node]="pencilIcon"></igds-icon>
+              </igds-button>
+            }
+          </igds-table-cell>
+        </igds-table-row>
+      }
+    </ng-container>
+  </igds-table>
+
+  <footer class="another-table__footer">
+    <igds-button variant="primary" type="submit">Submit</igds-button>
+    <igds-button
+      variant="secondary"
+      (igds-click)="addNewRow()"
+      [disabled]="editableRowId() !== undefined"
+    >
+      <igds-icon [node]="plusIcon"></igds-icon>
+      Add new row
+    </igds-button>
+  </footer>
+</form>
+
+
+
 <igds-radio-group
   label="Select button variants"
   orientation="vertical"

@@ -1,5 +1,5 @@
 import { Component, signal, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup } from "@angular/forms";
+import { ReactiveFormsModule, FormArray, FormControl, FormGroup } from "@angular/forms";
 import { IgdsButton } from "@igds/angular/button";
 import { IgdsRadioGroup } from "@igds/angular/radio-group";
 import { IgdsRadio } from "@igds/angular/radio";
@@ -11,7 +11,14 @@ import { IgdsTableCell } from "@igds/angular/table-cell";
 import { IgdsDropdown } from "@igds/angular/dropdown";
 import { IgdsIcon } from "@igds/angular/icon";
 import { Option } from "@igds/core-web/dropdown";
-import { plus, pencilOutlined } from "@igds/icons";
+import { plus, pencilOutlined, checkmark, close } from "@igds/icons";
+import { typeOfMaterial } from '../entities/typeOfMaterial';
+import {
+  createMaterialTableForm,
+  createMaterialTableRowFormGroup,
+  MaterialTableRowForm,
+  type MaterialTableRow,
+} from '../entities/materialTableRow';
 
 @Component({
   selector: 'app-root',
@@ -60,12 +67,25 @@ export class App {
     },
   ]
   rows = ['1', '2', '3'];
-  plusIcon = plus
-  pencilIcon = pencilOutlined
+  plusIcon = plus;
+  pencilIcon = pencilOutlined;
+  checkmarkIcon = checkmark;
+  closeIcon = close;
+  typeOfMaterialOptions = typeOfMaterial;
+
+  materialTableForm = createMaterialTableForm();
+  private nextMaterialTableRowId = 3;
+
+  get materialTableRows(): FormArray<MaterialTableRowForm> {
+    return this.materialTableForm.controls.rows;
+  }
 
   form: FormGroup = new FormGroup({
     input: new FormControl(''),
   });
+
+  editableRowId = signal<number | undefined>(undefined);
+  rowCache: Partial<MaterialTableRow> | undefined = undefined;
 
   submit(_event: SubmitEvent) {
     const formValues = this.form.value;
@@ -74,7 +94,6 @@ export class App {
   }
 
   handleChange(variant: CustomEvent<{value: string;}>) {
-    console.log('handleChange', variant.detail.value, this.buttonVariants);
     this.variant.set(variant.detail.value as typeof this.buttonVariants[number]);
   }
 
@@ -89,5 +108,37 @@ export class App {
 
   getFieldDisableState(id: string) {
     return !this.selectedRows().includes(id);
+  }
+
+  editRow(rowId: number) {
+    this.rowCache = this.materialTableRows.at(rowId - 1).value;
+    this.editableRowId.set(rowId);
+  }
+
+  saveRow() {
+    this.rowCache = undefined;
+    this.editableRowId.set(undefined);
+  }
+
+  cancelRowEdit(rowId: number) {
+    this.editableRowId.set(undefined);
+    if (!this.rowCache) {
+      return;
+    }
+    this.materialTableRows.at(rowId - 1).patchValue(this.rowCache);
+    this.rowCache = undefined;
+  }
+
+  addNewRow() {
+    this.materialTableRows.push(
+      createMaterialTableRowFormGroup({ rowId: this.nextMaterialTableRowId }),
+    );
+    this.editableRowId.set(this.nextMaterialTableRowId);
+    this.nextMaterialTableRowId += 1;
+  }
+
+  submitMaterialTableForm(event: SubmitEvent) {
+    event.preventDefault();
+    console.log('form submitted:', this.materialTableForm.value);
   }
 }

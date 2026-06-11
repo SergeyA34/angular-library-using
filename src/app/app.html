@@ -1,6 +1,52 @@
 <h1>Test angular app</h1>
 <h2>Custom row edit table</h2>
 
+<igds-table [selectable]="true" (igds-row-select)="handleRowSelect($event)">
+  <igds-table-header
+    [columns]='[
+        {"id":"1","name":"Name"},
+        {"id":"2","name":"Quantity"},
+        {"id":"3","name":"Measure"},
+        {"id":"4","name":"","slotted":true}
+      ]'
+  ></igds-table-header>
+  <igds-table-row
+    rowId="row1"
+    [cells]='[{"value":"Apples"},{"value":"12"},{"value":"boxes"}]'
+    [selected]="selectedRowId() === 'row1'"
+  >
+    <igds-table-cell>
+      <div class="table-control-box">
+        <igds-button variant="link">
+          <igds-dynamic-icon name="edit"></igds-dynamic-icon>
+        </igds-button>
+        <igds-button variant="link">
+          <igds-dynamic-icon name="trash"></igds-dynamic-icon>
+        </igds-button>
+      </div>
+    </igds-table-cell>
+  </igds-table-row>
+  <igds-table-row
+    rowId="row2"
+    [cells]='[{"value":"Water melon"},{"value":"300"},{"value":"ton"}]'
+    [selected]="selectedRowId() === 'row2'"
+  >
+    <igds-table-cell>
+      <div class="table-control-box">
+        <igds-button variant="link">
+          <igds-dynamic-icon name="edit"></igds-dynamic-icon>
+        </igds-button>
+        <igds-button variant="link">
+          <igds-dynamic-icon name="trash"></igds-dynamic-icon>
+        </igds-button>
+      </div>
+    </igds-table-cell>
+  </igds-table-row>
+</igds-table>
+<br />
+<br />
+<br />
+
 <form [formGroup]="materialTableForm" (ngSubmit)="submitMaterialTableForm($event)">
   <igds-table class="another-table">
     <igds-table-header

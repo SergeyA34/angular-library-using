@@ -45,6 +45,7 @@ export class App {
   checkboxValue = false;
   variant = signal<typeof this.buttonVariants[number]>('primary');
   selectedRows = signal<string[]>([]);
+  selectedRowId = signal<string | undefined>(undefined);
   buttonVariants = [
     'alternative',
     'link',
@@ -140,5 +141,12 @@ export class App {
   submitMaterialTableForm(event: SubmitEvent) {
     event.preventDefault();
     console.log('form submitted:', this.materialTableForm.value);
+  }
+
+  handleRowSelect(event: CustomEvent<{value: string[]}>) {
+    const selectedRowIds = event.detail.value;
+    const lastSelectedRowId = selectedRowIds[selectedRowIds.length - 1];
+    console.log('Selected rows:', selectedRowIds, lastSelectedRowId);
+    this.selectedRowId.set(lastSelectedRowId);
   }
 }

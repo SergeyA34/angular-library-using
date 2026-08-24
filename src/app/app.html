@@ -1,4 +1,17 @@
 <h1>Test angular app</h1>
+<h2>Badge background color override</h2>
+<div class="badge__box">
+  <igds-badge label="בְּרִירַת מֶחדָל"></igds-badge>
+  <igds-badge label="סמל לא סטנדרטי" [icon]="volumeMute" class="badge badge--primary"></igds-badge>
+  <igds-badge label="תיאור" variant="informative"></igds-badge>
+  <igds-badge label="בתהליך" variant="in-progress"></igds-badge>
+  <igds-badge label="הושלם" variant="success"></igds-badge>
+  <igds-badge label="שימו לב" variant="warning"></igds-badge>
+  <igds-badge label="נכשל" variant="failure"></igds-badge>
+</div>
+
+
+
 <h2>Custom row edit table</h2>
 
 <igds-table [selectable]="true" (igds-row-select)="handleRowSelect($event)">
@@ -43,6 +56,48 @@
     </igds-table-cell>
   </igds-table-row>
 </igds-table>
+
+<igds-dropdown
+  name="dropdown"
+  tooltip="תפריט נפתח בלתי ניתן לסינון בתוך הטופס"
+  [tooltipIcon]="true"
+  label="תווית"
+  placeholder="בחירה"
+  [options]="[
+    { id: '1', label: 'Apple 1' },
+    { id: '2', label: 'Apple 2' },
+    { id: '3', label: 'Apple 3' },
+    { id: '4', label: 'Apple 4' },
+    { id: '5', label: 'Apple 5' },
+    { id: '6', label: 'Apple 6' }
+  ]"
+  [filterable]="true"
+  (igds-change)="handleDropdown($event)"
+  dir="ltr"
+></igds-dropdown>
+<br />
+<br />
+<br />
+
+
+<igds-dropdown
+  name="dropdown"
+  tooltip="תפריט נפתח בלתי ניתן לסינון בתוך הטופס"
+  [tooltipIcon]="true"
+  label="תווית"
+  placeholder="בחירה"
+  [options]="[
+    { id: '1', label: 'תל אביב' },
+    { id: '2', label: 'תל ציון' },
+    { id: '3', label: 'תל יוסף' },
+    { id: '4', label: 'תל מונד' },
+    { id: '5', label: 'תל יצחק' },
+    { id: '6', label: 'תל עדשים' }
+  ]"
+  [filterable]="true"
+  (igds-change)="handleDropdown($event)"
+  dir="rtl"
+></igds-dropdown>
 <br />
 <br />
 <br />

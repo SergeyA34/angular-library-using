@@ -10,8 +10,9 @@ import { IgdsTableRow } from "@igds/angular/table-row";
 import { IgdsTableCell } from "@igds/angular/table-cell";
 import { IgdsDropdown } from "@igds/angular/dropdown";
 import { IgdsIcon } from "@igds/angular/icon";
+import { IgdsBadge } from "@igds/angular/badge";
 import { Option } from "@igds/core-web/dropdown";
-import { plus, pencilOutlined, checkmark, close } from "@igds/icons";
+import { plus, pencilOutlined, checkmark, close, volumeMute } from "@igds/icons";
 import { typeOfMaterial } from '../entities/typeOfMaterial';
 import {
   createMaterialTableForm,
@@ -34,6 +35,7 @@ import {
     IgdsTableCell,
     IgdsDropdown,
     IgdsIcon,
+    IgdsBadge,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -73,6 +75,7 @@ export class App {
   checkmarkIcon = checkmark;
   closeIcon = close;
   typeOfMaterialOptions = typeOfMaterial;
+  volumeMute = volumeMute;
 
   materialTableForm = createMaterialTableForm();
   private nextMaterialTableRowId = 3;
@@ -141,6 +144,10 @@ export class App {
   submitMaterialTableForm(event: SubmitEvent) {
     event.preventDefault();
     console.log('form submitted:', this.materialTableForm.value);
+  }
+
+  handleDropdown(e: CustomEvent) {
+    console.log('!!! =>', e.detail)
   }
 
   handleRowSelect(event: CustomEvent<{value: string[]}>) {

@@ -58,3 +58,18 @@
   }
 }
 
+.badge {
+  &--primary {
+    --igds-base-color-background-neutral-badge: #d6e0ff;
+  }
+
+  &__box {
+    margin-top: 20px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    background-color: #f2f6fd;
+    --igds-base-color-background-neutral-badge: #e2e8f2;
+  }
+}

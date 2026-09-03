@@ -1,5 +1,57 @@
+<igds-toast-container [position]="toastPosition()">
+  @for (toast of toasts(); track toast.id) {
+    <igds-toast
+      #toastItem
+      type="floating"
+      variant="success"
+      [closable]="true"
+      (igds-close)="deleteToast(toast.id)"
+      class="toast"
+      [class.toast--in-center]="toastPosition() === 'top-center' || toastPosition() === 'bottom-center'"
+      [shown]="toast.shown"
+    >
+      <strong slot="title">{{toast.title}}</strong>
+      {{toast.message}}
+    </igds-toast>
+  }
+</igds-toast-container>
 <h1>Test angular app</h1>
 <h2>Badge background color override</h2>
+<form [formGroup]="toastForm" (ngSubmit)="showToast($event)" class="toast-form">
+  <igds-input
+    formControlName="title"
+    dir="ltr"
+    class="toast-form__title"
+  ></igds-input>
+  <igds-input
+    formControlName="message"
+    dir="ltr"
+    class="toast-form__message"
+  ></igds-input>
+  <igds-button
+    variant="primary"
+    type="submit"
+    class="toast-form__submit"
+  >
+    Show toast
+  </igds-button>
+  <igds-dropdown
+    [selected]="[toastPosition()]"
+    [options]="[
+      { id: 'top-start', label: '↖' },
+      { id: 'top-center', label: '↑' },
+      { id: 'top-end', label: '↗' },
+      { id: 'bottom-start', label: '↙' },
+      { id: 'bottom-center', label: '↓' },
+      { id: 'bottom-end', label: '↘' }
+    ]"
+    (igds-change)="changeToastPosition($event)"
+    dir="ltr"
+    class="toast-form__position-dropdown"
+  >
+  </igds-dropdown>
+</form>
+
 <div class="badge__box">
   <igds-badge label="בְּרִירַת מֶחדָל"></igds-badge>
   <igds-badge label="סמל לא סטנדרטי" [icon]="volumeMute" class="badge badge--primary"></igds-badge>

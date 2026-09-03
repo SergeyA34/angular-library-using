@@ -73,3 +73,38 @@
     --igds-base-color-background-neutral-badge: #e2e8f2;
   }
 }
+
+.toast-form {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  padding: 20px;
+
+
+  &__title {
+    flex-grow: 1;
+  }
+
+  &__message {
+    flex-grow: 2;
+  }
+
+  &__submit {
+    flex: none;
+  }
+
+  &__position-dropdown {
+    flex: none;
+    width: 86px;
+    --igds-input-min-width: 20px;
+  }
+}
+
+.toast {
+  &--in-center {
+    --igds-toast-width: 60vw;
+    --igds-toast-max-width: 60vw;
+  }
+}

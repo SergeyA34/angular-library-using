@@ -1,4 +1,4 @@
-import { Component, signal, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, signal, effect } from '@angular/core';
 import { ReactiveFormsModule, FormArray, FormControl, FormGroup } from "@angular/forms";
 import { IgdsButton } from "@igds/angular/button";
 import { IgdsRadioGroup } from "@igds/angular/radio-group";
@@ -10,8 +10,12 @@ import { IgdsTableRow } from "@igds/angular/table-row";
 import { IgdsTableCell } from "@igds/angular/table-cell";
 import { IgdsDropdown } from "@igds/angular/dropdown";
 import { IgdsIcon } from "@igds/angular/icon";
+import { IgdsDynamicIcon } from "@igds/angular/dynamic-icon";
 import { IgdsBadge } from "@igds/angular/badge";
+import { IgdsToastContainer } from "@igds/angular/toast-container";
+import { IgdsToast } from "@igds/angular/toast";
 import { Option } from "@igds/core-web/dropdown";
+import { IGDS_TOAST_POSITION } from "@igds/core-web/toast";
 import { plus, pencilOutlined, checkmark, close, volumeMute } from "@igds/icons";
 import { typeOfMaterial } from '../entities/typeOfMaterial';
 import {
@@ -35,11 +39,13 @@ import {
     IgdsTableCell,
     IgdsDropdown,
     IgdsIcon,
+    IgdsDynamicIcon,
     IgdsBadge,
+    IgdsToastContainer,
+    IgdsToast,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrl: './app.scss'
 })
 export class App {
   inputValue = signal('default');
@@ -90,6 +96,13 @@ export class App {
 
   editableRowId = signal<number | undefined>(undefined);
   rowCache: Partial<MaterialTableRow> | undefined = undefined;
+  toasts = signal<ToastData[]>([]);
+  toastPosition = signal<`${IGDS_TOAST_POSITION}`>('top-end');
+  toastForm: FormGroup = new FormGroup({
+    title: new FormControl('Toast title example'),
+    message: new FormControl('Toast message example'),
+  });
+
 
   submit(_event: SubmitEvent) {
     const formValues = this.form.value;
@@ -156,4 +169,40 @@ export class App {
     console.log('Selected rows:', selectedRowIds, lastSelectedRowId);
     this.selectedRowId.set(lastSelectedRowId);
   }
+
+  showToast(e: SubmitEvent) {
+    e.preventDefault();
+    this.toasts.update((currentToasts) => ([
+      ...currentToasts,
+      {
+        id: crypto.randomUUID(),
+        title: this.toastForm.value.title,
+        message: this.toastForm.value.message,
+        shown: true,
+      }
+    ]));
+  }
+
+  deleteToast(toastId: string) {
+    this.toasts.update((currentToasts) => currentToasts.filter(toast => toast.id !== toastId));
+  }
+
+  changeToastPosition(event: CustomEvent<{value: string}>) {
+    this.toastPosition.set(event.detail.value as `${IGDS_TOAST_POSITION}`);
+  }
+
+  constructor() {
+    effect(() => {
+      const toasts = this.toasts();
+      console.log('Toasts changed:', toasts);
+    });
+  }
+}
+
+
+type ToastData = {
+  id: string;
+  title: string;
+  message: string;
+  shown: boolean;
 }
